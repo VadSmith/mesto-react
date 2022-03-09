@@ -10,7 +10,6 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
   const [cards, setCards] = useState([]);
 
   useEffect(() => {
-    console.log('useEffect() called');
     api.getMyUserInfo()
       .then((userData) => {
         setUserName(userData.name);

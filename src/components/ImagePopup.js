@@ -3,12 +3,9 @@ import React from 'react';
 function ImagePopup(props) {
   return (
     <div
-      className={
-        props.card
-          ? "popup popup_type_photo popup_opened"
-          : "popup popup_type_photo"
-      }
+      className={`popup ${props.card && 'popup_opened'}`}
     >
+
       <div className="popup__overlay"></div>
       <div className="popup__content popup__content_type_photo">
         <button
