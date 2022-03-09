@@ -1,5 +1,7 @@
 # Проект: Место
 
+Ссылка на [GitHub Pages](https://vadsmith.github.io/mesto-react/)
+или на [предыдущую версию](https://vadsmith.github.io/mesto/)
 
 **Описание проекта**
 
