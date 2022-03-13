@@ -17,7 +17,6 @@ function App() {
   useEffect(() => {
     api.getMyUserInfo()
       .then((userData) => {
-        console.log('userData', userData);
         setCurrentUser(userData);
       })
       .catch(err => `ОШИБКА! Не удалось получить данные пользователя: ${err}`)

@@ -27,7 +27,7 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
           <h1 className="profile__name">{currentUser?.name}</h1>
           <button onClick={onEditProfile} type="button" className="profile__edit-button">
           </button>
-          <p className="profile__occupation">{currentUser?.occupation}</p>
+          <p className="profile__occupation">{currentUser?.about}</p>
         </div>
         <button onClick={onAddPlace} type="button" className="profile__add-button">
         </button>
