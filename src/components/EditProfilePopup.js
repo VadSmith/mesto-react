@@ -8,13 +8,21 @@ export default function EditProfilePopup(props) {
   // Подписка на контекст
   const currentUser = useContext(CurrentUserContext);
 
-  // console.log(currentUser);
-
   // обработка поля имени
   function handleNameChange(event) {
     setName(event.target.value);
   }
 
+  function handleSubmit(e) {
+    // Запрещаем браузеру переходить по адресу формы
+    e.preventDefault();
+
+    // Передаём значения управляемых компонентов во внешний обработчик
+    props.onUpdateUser({
+      name,
+      about: description,
+    });
+  }
   // обработка поля описания
   function handleDescriptionChange(event) {
     setDescription(event.target.value);
@@ -23,7 +31,6 @@ export default function EditProfilePopup(props) {
   // После загрузки текущего пользователя из API
   // его данные будут использованы в управляемых компонентах.
   useEffect(() => {
-    // console.log('currentUser', currentUser);
     setName(currentUser.name);
     setDescription(currentUser.about);
   }, [currentUser]);
@@ -36,6 +43,7 @@ export default function EditProfilePopup(props) {
       buttonText="Сохранить"
       onCLose={props.onClose}
       isOpen={props.isOpen}
+      onSubmit={handleSubmit}
     >
       <input
         onChange={handleNameChange}

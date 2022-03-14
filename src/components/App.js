@@ -19,7 +19,6 @@ function App() {
   useEffect(() => {
     api.getMyUserInfo()
       .then((userData) => {
-        console.log(userData);
         setCurrentUser(userData);
       })
       .catch(err => `ОШИБКА! Не удалось получить данные пользователя: ${err}`)
@@ -48,6 +47,17 @@ function App() {
     setSelectedCard(null);
   }
 
+  function handleUpdateUser(userObject) {
+    api.setUserInfo(userObject)
+      .then(response => {
+        setCurrentUser({ ...response });
+      })
+      .catch(error => console.log('Ошибка сохранения даных юзера', error))
+      .finally(
+        closeAllPopups()
+      )
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
@@ -64,6 +74,7 @@ function App() {
         <EditProfilePopup
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
+          onUpdateUser={handleUpdateUser}
         />
 
         <Footer />
