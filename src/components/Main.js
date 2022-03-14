@@ -16,8 +16,16 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
     api.changeLikeCardStatus(card._id, !isLiked) // меняем статус лайка на противоположный
       .then((newCard) => {
         setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
-      });
+      }).catch((err) => { console.log('Ошибка лайка', err) });
   }
+
+  function handleCardDelete(card) {
+    api.deleteCard(card._id)
+      .then(() => {
+        setCards((state) => state.filter((c) => c._id !== card._id));
+      }).catch((err) => { console.log('Ошибка удаления карточки ', err) })
+  }
+
 
   useEffect(() => {
     api.getInitialCards()
@@ -51,6 +59,7 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
             key={cardJSON._id}
             onCardClick={onCardClick}
             onCardLike={handleCardLike}
+            onCardDelete={handleCardDelete}
           />
 
         ))}
