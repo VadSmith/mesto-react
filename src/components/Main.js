@@ -8,6 +8,17 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
   const [cards, setCards] = useState([]);
   const currentUser = useContext(CurrentUserContext);
 
+  function handleCardLike(card) {
+    // Снова проверяем, есть ли уже лайк на этой карточке
+    const isLiked = card.likes.some(i => i._id === currentUser._id);
+
+    // Отправляем запрос в API и получаем обновлённые данные карточки
+    api.changeLikeCardStatus(card._id, !isLiked) // меняем статус лайка на противоположный
+      .then((newCard) => {
+        setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+      });
+  }
+
   useEffect(() => {
     api.getInitialCards()
       .then((cardsJSON) => {
@@ -39,6 +50,7 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
             card={cardJSON}
             key={cardJSON._id}
             onCardClick={onCardClick}
+            onCardLike={handleCardLike}
           />
 
         ))}
