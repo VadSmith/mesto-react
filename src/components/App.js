@@ -139,8 +139,8 @@ function App() {
 
         <AddPlacePopup
           isOpen={isAddPlacePopupOpen}
-          onClose={closeAllPopups}
           onAddPlace={handleAddPlace}
+          onClose={closeAllPopups}
         >
         </AddPlacePopup>
 
