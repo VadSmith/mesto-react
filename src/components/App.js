@@ -5,6 +5,7 @@ import Footer from './Footer.js';
 import PopupWithForm from './PopupWithForm.js';
 import ImagePopup from './ImagePopup.js';
 import EditProfilePopup from './EditProfilePopup.js';
+import EditAvatarPopup from './EditAvatarPopup.js';
 import api from '../utils/api.js';
 import CurrentUserContext from '../contexts/CurrentUserContext';
 
@@ -47,12 +48,25 @@ function App() {
     setSelectedCard(null);
   }
 
+  // Апдейт данных пользователя
   function handleUpdateUser(userObject) {
     api.setUserInfo(userObject)
-      .then(response => {
-        setCurrentUser({ ...response });
+      .then(responseUserObject => {
+        setCurrentUser({ ...responseUserObject });
       })
       .catch(error => console.log('Ошибка сохранения даных юзера', error))
+      .finally(
+        closeAllPopups()
+      )
+  }
+
+  // Апдейт аватара пользователя
+  function handleUpdateAvatar(avatarUrl) {
+    api.editAvatar(avatarUrl)
+      .then(responseUserObject => {
+        setCurrentUser({ ...responseUserObject });
+      })
+      .catch(error => console.log('Ошибка сохранения аватара', error))
       .finally(
         closeAllPopups()
       )
@@ -71,35 +85,20 @@ function App() {
           onCardClick={handleCardClick}
         />
 
+
+        <Footer />
+
         <EditProfilePopup
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
           onUpdateUser={handleUpdateUser}
         />
 
-        <Footer />
-
-        <PopupWithForm
-          title="Обновить аватар"
-          name="avatar"
-          buttonText="Сохранить"
-          onCLose={closeAllPopups}
+        <EditAvatarPopup
           isOpen={isEditAvatarPopupOpen}
-        >
-          <input
-            required
-            type="url"
-            name="avatar"
-            id="avatar"
-            className="popup__input popup__input_type_link"
-            placeholder="Ссылка на картинку"
-          />
-          <span
-            id="avatar-error"
-            className="popup__error"
-          >
-          </span>
-        </PopupWithForm>
+          onClose={closeAllPopups}
+          onUpdateAvatar={handleUpdateAvatar}
+        />
 
         <PopupWithForm
           title="Новое место"
