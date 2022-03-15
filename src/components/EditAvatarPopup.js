@@ -49,6 +49,7 @@ export default function EditAvatarPopup(props) {
         className="popup__input popup__input_type_link"
         placeholder="Ссылка на картинку"
       />
+
       <span
         id="avatar-error"
         className="popup__error"

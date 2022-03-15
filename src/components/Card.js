@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import CurrentUserContext from '../contexts/CurrentUserContext';
 
 function Card(props) {
@@ -31,18 +31,25 @@ function Card(props) {
 
   return (
     <div className="element">
-      <button onClick={handleDeleteClick} type="button" className={cardDeleteButtonClassName}></button>
+      <button
+        onClick={handleDeleteClick}
+        type="button"
+        className={cardDeleteButtonClassName}>
+      </button>
       <img
         onClick={handleClick}
         src={props.card.link}
         alt={props.card.name}
         className="element__photo"
-
       />
       <div className="element__description">
         <h2 className="element__title">{props.card.name}</h2>
         <div className="element__like-section">
-          <button onClick={handleLikeClick} className={cardLikeButtonClassName} type="button"></button>
+          <button
+            onClick={handleLikeClick}
+            className={cardLikeButtonClassName}
+            type="button">
+          </button>
           <span className="element__like-counter">{props.card.likes.length}</span>
         </div>
       </div>
